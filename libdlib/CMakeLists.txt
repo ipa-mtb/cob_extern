@@ -15,7 +15,7 @@ ExternalProject_Add(EP_${PROJECT_NAME}
 
     SOURCE_DIR ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-src
     BINARY_DIR ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-build
-    
+    CMAKE_CACHE_ARGS "-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true"   
     CONFIGURE_COMMAND ${CMAKE_COMMAND} ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-src/dlib
     BUILD_COMMAND ${CMAKE_COMMAND} --build . --config Release
         # copy headers to devel space (catkin does not like headers in source space)
@@ -23,6 +23,7 @@ ExternalProject_Add(EP_${PROJECT_NAME}
         # copy libs, set-up soname chain
         COMMAND ${CMAKE_COMMAND} -E copy_if_different ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-build/libdlib.a ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_LIB_DESTINATION}
     INSTALL_COMMAND ""
+
 )
 
 catkin_package(
